@@ -18,7 +18,10 @@ def create_augmented_matrix(equations):
 
 
 def linear_system_solver(inp):
-    m = create_augmented_matrix(inp)
+    if len(inp) > len(inp[0]):
+        m = create_augmented_matrix(inp)
+    else:
+        m = inp
     for i in range(len(m)):  # ust ucgen matris
         for j in range(len(m) - 1, i, -1):
             t = m[j][i] / m[i][i]
@@ -33,28 +36,29 @@ def linear_system_solver(inp):
     for i in range(len(m)):
         m[i][-1] /= m[i][i]
         m[i][i] /= m[i][i]
-    print_matrix(m)
     return m
 
+if __name__ == '__main__':
+    # Test
+    A1 = [2, 4]     # 2x + 4y = 8
+    A2 = [3, 4]     # 3x + 4y = 9
+    A_res = [8, 9]
 
-# Test
-A1 = [2, 4]     # 2x + 4y = 8
-A2 = [3, 4]     # 3x + 4y = 9
-A_res = [8, 9]
+    B1 = [4, 5, 8]      # 2x + 5y + 8z = 14
+    B2 = [3, 4, 10]     # 3x + 4y + 10z = 32
+    B3 = [8, 4, 12]     # 8x + 4y + 12z = 16
+    B_res = [14, 32, 16]
 
-B1 = [4, 5, 8]      # 2x + 5y + 8z = 14
-B2 = [3, 4, 10]     # 3x + 4y + 10z =
-B3 = [8, 4, 12]     # 8x + 4y + 12z = 16
-B_res = [14, 32, 16]
+    C1 = [2, 5, 8, 6]
+    C2 = [3, 4, 10, 5]
+    C3 = [8, 7, 12, 9]
+    C4 = [9, 17, 8, 12]
+    C_res = [14, 32, 16, 5]
 
-C1 = [2, 5, 8, 6]
-C2 = [3, 4, 10, 5]
-C3 = [8, 7, 12, 9]
-C4 = [9, 17, 8, 12]
-C_res = [14, 32, 16, 5]
+    # Listenin son elemani sonuclari icermelidir.
 
-# Listenin son elemani sonuclari icermelidir.
+    # linear_system_solver([A1, A2, A_res])
+    # linear_system_solver([B1, B2, B3, B_res])
 
-# linear_system_solver([A1, A2, A_res])
-# linear_system_solver([B1, B2, B3, B_res])
-linear_system_solver([C1, C2, C3, C4, C_res])
+    m = linear_system_solver([C1, C2, C3, C4, C_res])
+    print_matrix(m)
